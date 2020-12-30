@@ -1,38 +1,43 @@
 import React from 'react'
 import {View, Text, StyleSheet, Button} from 'react-native'
+import {NavigationContainer} from '@react-navigation/native'
+import { createStackNavigator } from "@react-navigation/stack";
 
 export default function () {
-  return (
-      <View style={{height:'75%', alignItems: 'center', justifyContent: 'center'}}>
-        <View style={estilo.mainBox}>
-            <Button 
-                style={estilo.geralBotoes}
-                title="iniciar" 
-            />
-            <Button 
-                style={estilo.geralBotoes}
-                title="cadastrar lista" 
-            />
-            <Button 
-                style={estilo.geralBotoes}
-                title="ver listas" 
-            />
-            <Button 
-                style={estilo.geralBotoes}
-                title="ver historico"
-            />
-            <Button 
-                style={estilo.geralBotoes}
-                title="info" 
-            />
-            <Button 
-                style={estilo.geralBotoes}
-                title="sair" 
-            />
+    
+    return (
+        <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+            <View style={estilo.mainBox}>
+                <Button 
+                    style={estilo.geralBotoes}
+                    title="iniciar" 
+                />
+                <Button 
+                    style={estilo.geralBotoes}
+                    title="cadastrar lista" 
+                    onPress = {()=>navigation.navigate('TelaCadastro1')}
+                />
+                <Button 
+                    style={estilo.geralBotoes}
+                    title="ver listas" 
+                />
+                <Button 
+                    style={estilo.geralBotoes}
+                    title="ver historico"
+                />
+                <Button 
+                    style={estilo.geralBotoes}
+                    title="info" 
+                />
+                <Button 
+                    style={estilo.geralBotoes}
+                    title="sair" 
+                />
+            </View>
         </View>
-    </View>
-  )
+    );
 }
+
 
 const estilo = StyleSheet.create({
     mainBox: {
