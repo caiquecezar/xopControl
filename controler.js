@@ -6,11 +6,21 @@ const models=require('./models');
 const app=express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 let lista=models.Lista;
 let produto=models.Produto;
 let compra=models.Compra;
 
+app.post('/createNewList', async (req,res)=>{
+    let create=await lista.create({
+        nomeLista: req.body.nomeLista,
+        createdAt: new Date(),
+        updatedAt: new Date()
+    })
+    res.send(create);
+});
 
+/*
 app.get('/create', async (req,res)=>{
     let create=await lista.create({
         nomeLista: 'Frutas',
@@ -36,7 +46,7 @@ app.get('/delete', async (req,res)=>{
         where: {id:3}
     });
 });
-
+*/
 
 let port=process.env.PORT || 3000;
 app.listen(port,(req,res) => {

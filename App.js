@@ -5,6 +5,23 @@ import Footer from './componentes/footer'
 import {NavigationContainer} from '@react-navigation/native'
 import { createStackNavigator } from "@react-navigation/stack";
 
+
+//BACKEND
+//Criar nova lista
+async function createNewList() {
+  let response=await fetch('http://10.0.2.2:3000/createNewList', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      nomeLista: nomeLista,
+    })
+  });
+  let json=await response.json();
+  console.log(json);
+}
 //VARIAVEIS
 const Pilha = createStackNavigator();
 let nomeLista = '';
@@ -37,30 +54,33 @@ function TelaMenu ({navigation}) {
       <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
           <View style={estilo.mainBox}>
               <Button 
-                  style={estilo.geralBotoes}
+                  style={{}}
                   title="iniciar" 
               />
               <Button   
-                  style={estilo.geralBotoes}
+                  style={{}}
                   title="cadastrar lista" 
+                  color='#0ae'
                   onPress = {()=>navigation.navigate('TelaCadastro1')}
               />
               <Button 
-                  style={estilo.geralBotoes}
+                  style={{}}
                   title="ver listas" 
                   onPress = {()=>navigation.navigate('TelaVerListas')}
               />
               <Button 
-                  style={estilo.geralBotoes}
+                  color='#0ae'
+                  style={{}}
                   title="ver historico"
               />
               <Button 
-                  style={estilo.geralBotoes}
+                  style={{}}
                   title="info" 
                   onPress={()=>navigation.navigate('TelaInfo')}
               />
               <Button 
-                  style={estilo.geralBotoes}
+                  color='#0ae'
+                  style={{}}
                   title="sair" 
                   onPress={()=>BackHandler.exitApp()}
               />
@@ -73,25 +93,40 @@ function TelaMenu ({navigation}) {
 function TelaCadastro1 ({navigation}) {
   const [nome,setNome] = useState('');
   return (
-    <View>
-      <Text>
-        Nome da Lista: 
-      </Text>
-      <TextInput 
-        style={{borderWidth: 1, borderColor: 'black'}}
-        value = {nome}
-        onChangeText={text => setNome(text)}
-      />
-      <Button 
-          style={estilo.geralBotoes}
-          title="Próximo"
-          onPress = {()=>{nomeLista = nome; setNome(''); navigation.navigate('TelaCadastro2')}} 
-      />
-      <Button 
-          style={estilo.geralBotoes}
-          title="voltar"
-          onPress = {()=>{navigation.goBack()}} 
-      />
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View>
+        <View style={{backgroundColor: '#09f', borderRadius: 10, marginBottom: 10, padding: 10}}>
+          <Text style={{fontSize: 25, marginBottom: 30, color: 'white', fontWeight:'bold'}}>
+            CRIAR NOVA LISTA   
+          </Text>
+          <View style={{ marginBottom: 20}}>
+            <Text style={{fontSize: 15, color: 'white'}}>
+              Nome da Lista:   
+            </Text>
+            <TextInput 
+              style={{borderWidth: 1, borderColor: 'white', color: 'white', width: 250}} 
+              value = {nome}
+              onChangeText={text => setNome(text)}
+            />
+          </View>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={{margin: 10}} >
+            <Button 
+                style={{}}
+                title="voltar"
+                onPress = {()=>{navigation.goBack()}} 
+            />
+          </View>
+          <View style={{margin: 10}} >
+            <Button 
+                style={{}}
+                title="Próximo"
+                onPress = {()=>{nomeLista = nome; setNome(''); /*createNewList();*/ navigation.navigate('TelaCadastro2')}} 
+            />
+          </View>
+        </View>
+      </View>
     </View>
   )
 }
@@ -116,68 +151,89 @@ function TelaCadastro2 ({navigation}) {
     navigation.navigate('TelaMenu');
   }
   return (
-    <View>
-      <Text>
-        NOME DA LISTA: {nomeLista}
-      </Text>
-      <Text>
-        Nome do item: 
-      </Text>
-      <TextInput 
-        style={{borderWidth: 1, borderColor: 'black'}}
-        value = {prod}
-        onChangeText={text => setProd(text)}
-      />
-      <Text>
-        Unidade de medida: 
-      </Text>
-      <TextInput 
-        style={{borderWidth: 1, borderColor: 'black'}}
-        value = {medida}
-        onChangeText={text => setMedida(text)}
-      />
-      <Button 
-          style={estilo.geralBotoes}
-          title="Adicionar"
-          onPress={() => addItem()}
-      />
-      <Text>LISTA</Text>
-      <FlatList
-        data={itens}
-        keyExtractor={item=>item.id} 
-        renderItem={ ({item}) =>
-            <View>
-                <Text> Item: {item.nome} - Unidade: {item.medida}</Text>
-            </View>
-        }
-      />
-      <Button 
-          style={estilo.geralBotoes}
-          title="Finalizar"
-          onPress={()=> finalizarLista()}
-      />
-      <Button 
-          style={estilo.geralBotoes}
-          title="voltar"
-          onPress = {()=>{navigation.goBack()}} 
-      />
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5}}>
+      
+      <View style={{backgroundColor: '#09f', borderRadius: 10, marginBottom: 10, padding: 10}}>
+        <Text style={{fontSize: 25, marginBottom: 15, color: 'white', fontWeight:'bold'}}>
+          {nomeLista}
+        </Text>
+        <Text style={{fontSize: 17, color: 'white'}}>
+          Adicionar item 
+        </Text>
+        <Text style={{fontSize: 15, color: 'white'}}>
+          Nome do item: 
+        </Text>
+        <TextInput 
+          style={{borderWidth: 1, borderColor: 'white', color: 'white', width: 250}} 
+          value = {prod}
+          onChangeText={text => setProd(text)}
+        />
+        <Text style={{fontSize: 15, color: 'white'}}>
+          Unidade de medida: 
+        </Text>
+        <TextInput 
+          style={{borderWidth: 1, borderColor: 'white', color: 'white', width: 250, marginBottom: 5}} 
+          value = {medida}
+          onChangeText={text => setMedida(text)}
+        />
+        <Button 
+            style={estilo.geralBotoes}
+            title="Adicionar"
+            onPress={() => addItem()}
+        />
+      </View>
+      <View style={{ flex: 1, backgroundColor: '#09f', borderRadius: 10, marginBottom: 5, padding: 10}}>
+        
+          <Text style={{fontSize: 17, color: 'white', width: 250, textAlign: 'center', fontWeight: 'bold'}}>LISTA</Text>   
+       
+        <FlatList
+          data={itens}
+          keyExtractor={item=>item.id} 
+          renderItem={ ({item}) =>
+              <View style={{width: '100%'}}>
+                  <Text style={{color: 'white'}}> Item: {item.nome} - Unidade: {item.medida}</Text>
+              </View>
+          }
+        />
+      </View>
+      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={{margin: 10}} >
+            <Button 
+              style={{}}
+              title="voltar"
+              onPress = {()=>{navigation.goBack()}} 
+            />
+          </View>
+          <View style={{margin: 10}} >
+            <Button 
+                style={{}}
+                title="Finalizar"
+                onPress={()=> finalizarLista()}
+            />
+          </View>
+      </View>
     </View>
   )
 }
 
 function TelaInfo({navigation}) {
   return (
-    <View>
-      <Text>
-        Este aplicativo foi desenvolvido por Caique Cézar apenas a título de aprendizado.
-        {"\n"}O uso de componentes e/ou partes do códigos está permitido desde que com prévia autorização do autor segundo a Lei 8.251/89.
-        {"\n"}Todos os direitos reservados.
-      </Text>
-      <Button 
-          style={estilo.geralBotoes}
-          title="voltar"
-          onPress = {()=>{navigation.goBack()}} 
-      />
+    <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}>
+      <View style={{width: '70%'}}>
+        <View style={{backgroundColor: '#09f', borderRadius: 10, marginBottom: 10, padding: 10}}>
+          <Text style={{fontSize: 18, textAlign: 'center', color: 'white'}}>
+            Este aplicativo foi desenvolvido por Caique Cézar apenas a título de aprendizado.
+            {"\n"} O uso de componentes e/ou partes do códigos está permitido desde que com prévia autorização do autor segundo a Lei 8.251/89.
+            {"\n"} Todos os direitos reservados.
+            {"\n"}
+          </Text>
+        </View>
+        <Button 
+            style={estilo.geralBotoes}
+            title="voltar"
+            onPress = {()=>{navigation.goBack()}} 
+        />
+      </View>
     </View>
   )
 }
@@ -432,6 +488,11 @@ const estilo = StyleSheet.create({
     width: 20,
     height: 20,
     margin: 5,
+  },
+  tituloTexto: {
+    fontSize: 15,
+    textAlign: 'left',
+
   }
 })
 /*
