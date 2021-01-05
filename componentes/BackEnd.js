@@ -20,7 +20,7 @@ export async function LoadListas() {
     return todasListas;
 }
 
-export async function createNewList(nomeLista) {
+export async function CreateNewList(nomeLista) {
     let response=await fetch('http://10.0.2.2:3000/createNewList', {
       method: 'POST',
       headers: {
@@ -31,4 +31,37 @@ export async function createNewList(nomeLista) {
     });
     let json=await response.json();
     console.log(json);
+};
+
+export async function UpdateList(editable) {
+    let response=await fetch('http://10.0.2.2:3000/updateList', 
+        {
+            method: 'POST',
+            headers: {
+            Accept: 'application/json', 
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            id: editable.id,
+            nome: editable.nome,
+        })
+    });
+    //let json=await response.json();
+    //console.log(json);
+    console.log(editable.produtos.length);
+    
+    response = await fetch('http://10.0.2.2:3000/updateItens', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            idLista: editable.id,
+            produtos: editable.produtos
+        })
+    });
+    //let json=await response.json();
+    //console.log(json);
+    
 };

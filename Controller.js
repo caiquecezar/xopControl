@@ -24,12 +24,47 @@ app.get('/getListas', async (req,res)=> {
     let data=await lista.findAll({ raw: true});
     res.send(data);
 });
+
 app.get('/getItens', async (req,res)=> {
     let data=await produto.findAll({
         attributes: ['id', 'nomeProduto', 'nomeMedida', 'listaId']
       });
     res.send(data);
 });
+
+app.post('/updateList', async (req,res)=>{
+    let update = await lista.findByPk(req.body.id).then((response)=> {
+        response.nomeLista = req.body.nome;
+        response.save();
+    });
+    res.send(update);
+});
+
+app.post('/updateItens', async (req,res)=>{
+    for (i=0;i<req.body.produtos.length;i++) {
+        let update = await produto.findByPk(req.body.produtos[i].id).then((response) => {
+            if (response) {
+                console.log('MODIFICANDO O REGISTRO DE ID:' + req.body.id);
+                response.nomeProduto = req.body.produtos[i].nome;
+                response.nomeMedida = req.body.produtos[i].medida;
+                response.updatedAt = new Date();
+                response.save();
+            } else {
+                console.log('ADICIONANDO NOVO REGISTRO');
+                produto.create ({
+                    listaId: req.body.idLista,
+                    id: req.body.produtos[i].id,
+                    nomeProduto: req.body.produtos[i].nome,
+                    nomeMedida: req.body.produtos[i].medida,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                });
+            }
+        })
+    }   
+});
+
+
 
 /*
 app.get('/create', async (req,res)=>{
@@ -46,12 +81,7 @@ app.get('/read', async (req,res)=>{
     });
     console.log(read);    
 });
-app.get('/update', async (req,res)=>{
-    let update=await lista.findByPk(3).then((response)=> {
-        response.nomeLista="Lista de Frutas";
-        response.save();
-    });
-});
+
 app.get('/delete', async (req,res)=>{
     lista.destroy({
         where: {id:3}

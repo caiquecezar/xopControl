@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {View, Text, Image, StyleSheet, Button, TextInput, FlatList, BackHandler, Alert, TouchableHighlight} from 'react-native'
 import TelaCadastroItens from '../componentes/CadastrarListaItens.js'
+import {CreateNewList} from '../componentes/BackEnd.js'
 
 export default function ({navigation}) {
     const [nome,setNome] = useState('');
@@ -34,7 +35,11 @@ export default function ({navigation}) {
               <Button 
                   style={{}}
                   title="Próximo"
-                  onPress = {()=>{nomeLista = nome; setNome(''); /*createNewList();*/ navigation.navigate('TelaCadastroItens')}} 
+                  onPress = {()=>{
+                    CreateNewList(nome); 
+                    setNome ('');
+                    navigation.navigate('TelaCadastroItens')
+                  }} 
               />
             </View>
           </View>

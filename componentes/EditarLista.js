@@ -1,17 +1,17 @@
 import React, {useState} from 'react'
-import {View, Text, Image, StyleSheet, Button, TextInput, FlatList, BackHandler, Alert, TouchableHighlight} from 'react-native'
-
+import {View, Text, Button, TextInput, FlatList} from 'react-native'
+import { UpdateList } from '../componentes/BackEnd.js'
 
 export default function ({route, navigation}) {
     let editable = route.params.editable;
-    console.log(editable);
+    //console.log("Editable"); console.log(editable);
 
     const [prod,setProd] = useState('');
     const [medida,setMedida] = useState('');
     const [itens, setItens] = useState(editable.produtos);
     const [nomeListaEdit, setNomeListEdit] = useState(editable.nome);
     
-    let id = itens.length;
+    let id = route.params.maxId;
     
     function addItem () {
       itens.push({id: ++id, nome: prod, medida: medida})
@@ -20,7 +20,13 @@ export default function ({route, navigation}) {
       setMedida('');
     }
     
-    function finalizarEdicao () {  
+    function finalizarEdicao () {
+      editable.nome = nomeListaEdit;
+      editable.produtos = itens;
+      console.log(editable.produtos)
+      UpdateList(editable);
+      //console.log("Editable FINAL"); console.log(editable);
+      
       setProd('');
       setMedida('');
       setItens([]);

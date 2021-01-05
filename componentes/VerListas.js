@@ -27,7 +27,13 @@ export default function({navigation}) {
                     {'  '}
                     <TouchableHighlight 
                       onPress={()=>{
-                        navigation.navigate('TelaEditarLista', {editable: todasListas[index]});
+                        let maxId = 0;
+                        for(i=0;i<todasListas.length;i++)
+                          for(j=0;j<todasListas[i].produtos.length;j++) 
+                            if(todasListas[i].produtos[j].id > maxId) 
+                              maxId = todasListas[i].produtos[j].id;
+                        console.log(maxId);
+                        navigation.navigate('TelaEditarLista', {editable: todasListas[index], maxId: maxId});
                       }} 
                       underlayColor='blue'
                     >
