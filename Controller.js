@@ -20,6 +20,17 @@ app.post('/createNewList', async (req,res)=>{
     res.send(create);
 });
 
+app.get('/getListas', async (req,res)=> {
+    let data=await lista.findAll({ raw: true});
+    res.send(data);
+});
+app.get('/getItens', async (req,res)=> {
+    let data=await produto.findAll({
+        attributes: ['id', 'nomeProduto', 'nomeMedida', 'listaId']
+      });
+    res.send(data);
+});
+
 /*
 app.get('/create', async (req,res)=>{
     let create=await lista.create({

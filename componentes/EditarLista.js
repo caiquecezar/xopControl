@@ -1,52 +1,32 @@
 import React, {useState} from 'react'
 import {View, Text, Image, StyleSheet, Button, TextInput, FlatList, BackHandler, Alert, TouchableHighlight} from 'react-native'
 
-let nomeLista = '';
-let listaItens = [];
-let todasListas = [];
-let idEdit = 0;
-let contador = 0;
-todasListas = [
-  {
-    id: 1,
-    nome: 'Lista 1',
-    produtos: [{id: 1, nome: 'abobra', medida: 'un'},{id: 2, nome: 'carne', medida: 'kg'}]
-  },
-  {
-    id: 2,
-    nome: 'Lista 2',
-    produtos: [{id: 1, nome: 'buceta', medida: 'un'},{id: 2, nome: 'cu', medida: 'kg'},{id: 2, nome: 'priquito', medida: 'cm'}]
-  }
-]
-function addLista () {
-  todasListas.push({id: ++contador, nome: nomeLista, produtos: listaItens})
-}
-function editLista (id) {
-  todasListas[id].nome = nomeLista;
-  todasListas[id].produtos = listaItens;
-}
-export default function ({navigation}) {
+
+export default function ({route, navigation}) {
+    let editable = route.params.editable;
+    console.log(editable);
 
     const [prod,setProd] = useState('');
     const [medida,setMedida] = useState('');
-    const [itens, setItens] = useState(todasListas[idEdit].produtos);
-    const [nomeListaEdit, setNomeListEdit] = useState(todasListas[idEdit].nome);
+    const [itens, setItens] = useState(editable.produtos);
+    const [nomeListaEdit, setNomeListEdit] = useState(editable.nome);
+    
     let id = itens.length;
+    
     function addItem () {
       itens.push({id: ++id, nome: prod, medida: medida})
       setItens([...itens])
       setProd('');
       setMedida('');
     }
-    function finalizarEdicao () {
-      nomeLista = nomeListaEdit;
-      listaItens = itens;
-      editLista(idEdit);
+    
+    function finalizarEdicao () {  
       setProd('');
       setMedida('');
       setItens([]);
       navigation.navigate('TelaMenu');
     }
+    
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5}}>
         <View style={{backgroundColor: '#09f', borderRadius: 10, padding: 10, marginBottom: 10}}>

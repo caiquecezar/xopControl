@@ -9,6 +9,7 @@ import TelaVerListas from '../componentes/VerListas.js'
 import TelaEditarLista  from "../componentes/EditarLista.js";
 
 export default function({navigation}) {    
+    () => loadListas();
     return (
         <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
             <View style={{}}>
@@ -25,7 +26,7 @@ export default function({navigation}) {
                 <Button 
                     style={{}}
                     title="ver listas" 
-                    onPress = {()=>navigation.navigate('TelaVerListas')}
+                    onPress = {()=>navigation.push('TelaVerListas')}
                 />
                 <Button 
                     color='#0ae'

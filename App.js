@@ -10,43 +10,11 @@ import TelaCadastroItens from './componentes/CadastrarListaItens'
 import TelaVerListas from './componentes/VerListas'
 import TelaEditarLista  from "./componentes/EditarLista";
 import TelaMenu from './componentes/Menu.js'
+import Estilo from './componentes/Estilo.js'
+import { LoadListas } from "./componentes/BackEnd.js";
 
-//BACKEND
-//Criar nova lista
-async function createNewList() {
-  let response=await fetch('http://10.0.2.2:3000/createNewList', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      nomeLista: nomeLista,
-    })
-  });
-  let json=await response.json();
-  console.log(json);
-}
-
-//VARIAVEIS
 const Pilha = createStackNavigator();
-let nomeLista = '';
-let listaItens = [];
-let todasListas = [];
-let idEdit = 0;
-let contador = 0;
-todasListas = [
-  {
-    id: 1,
-    nome: 'Lista 1',
-    produtos: [{id: 1, nome: 'abobra', medida: 'un'},{id: 2, nome: 'carne', medida: 'kg'}]
-  },
-  {
-    id: 2,
-    nome: 'Lista 2',
-    produtos: [{id: 1, nome: 'buceta', medida: 'un'},{id: 2, nome: 'cu', medida: 'kg'},{id: 2, nome: 'priquito', medida: 'cm'}]
-  }
-]
+
 function addLista () {
   todasListas.push({id: ++contador, nome: nomeLista, produtos: listaItens})
 }
@@ -54,7 +22,6 @@ function editLista (id) {
   todasListas[id].nome = nomeLista;
   todasListas[id].produtos = listaItens;
 }
-
 
 export default function () {
   return (
@@ -75,7 +42,7 @@ export default function () {
             headerLeft: ()=>(
                 <Image 
                   source={require('./assets/images/carrinho-de-compras.png')}
-                  style={estilo.logo}
+                  style={Estilo.logo}
                 />
             ),
           }}
@@ -95,7 +62,7 @@ export default function () {
             headerLeft: ()=>(
                 <Image 
                   source={require('./assets/images/carrinho-de-compras.png')}
-                  style={estilo.logo}
+                  style={Estilo.logo}
                 />
             ),
           }}
@@ -115,7 +82,7 @@ export default function () {
             headerLeft: ()=>(
                 <Image 
                   source={require('./assets/images/carrinho-de-compras.png')}
-                  style={estilo.logo}
+                  style={Estilo.logo}
                 />
             ),
           }}
@@ -135,7 +102,7 @@ export default function () {
             headerLeft: ()=>(
                 <Image 
                   source={require('./assets/images/carrinho-de-compras.png')}
-                  style={estilo.logo}
+                  style={Estilo.logo}
                 />
             ),
           }}
@@ -155,7 +122,7 @@ export default function () {
             headerLeft: ()=>(
                 <Image 
                   source={require('./assets/images/carrinho-de-compras.png')}
-                  style={estilo.logo}
+                  style={Estilo.logo}
                 />
             ),
           }}
@@ -175,7 +142,7 @@ export default function () {
             headerLeft: ()=>(
                 <Image 
                   source={require('./assets/images/carrinho-de-compras.png')}
-                  style={estilo.logo}
+                  style={Estilo.logo}
                 />
             ),
           }}
@@ -186,22 +153,6 @@ export default function () {
   )
 }
 
-const estilo = StyleSheet.create({
-  logo: {
-    width: 40,
-    height: 40,
-    margin: 15,
-  },
-  editar: {
-    width: 20,
-    height: 20,
-  },
-  tituloTexto: {
-    fontSize: 15,
-    textAlign: 'left',
-
-  }
-})
 /*
 espress js - framework
 nodemon - rodar o server
