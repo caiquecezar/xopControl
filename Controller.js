@@ -40,6 +40,22 @@ app.post('/updateList', async (req,res)=>{
     res.send(update);
 });
 
+app.post('/addItens', async (req,res) => {
+    let find = await lista.findOne({
+        where: { nomeLista: req.body.blista}
+    });
+    let id = find.id;
+    for (i=0; i<req.body.bitens.length; i++) {
+        let addItens = await produto.create({
+            listaId: id,
+            nomeProduto: req.body.bitens[i].nome,
+            nomeMedida: req.body.bitens[i].medida,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        }) 
+    }
+});
+
 app.post('/updateItens', async (req,res)=>{
     for (i=0;i<req.body.produtos.length;i++) {
         let update = await produto.findByPk(req.body.produtos[i].id).then((response) => {
@@ -64,17 +80,21 @@ app.post('/updateItens', async (req,res)=>{
     }   
 });
 
+app.post('/deleteList', async (req,res)=>{
+    lista.destroy({
+        where: {id:req.body.listaId}
+    });
+    /*produto.destroy({
+        where: {listaId:req.body.listaId}
+    });*/
+});
 
+let port=process.env.PORT || 3000;
+app.listen(port,(req,res) => {
+   console.log("Servidor ON"); 
+});
 
 /*
-app.get('/create', async (req,res)=>{
-    let create=await lista.create({
-        nomeLista: 'Frutas',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    })
-    res.send('Lista criada!');
-});
 app.get('/read', async (req,res)=>{
     let read=await lista.findAll({
         raw: true
@@ -82,14 +102,5 @@ app.get('/read', async (req,res)=>{
     console.log(read);    
 });
 
-app.get('/delete', async (req,res)=>{
-    lista.destroy({
-        where: {id:3}
-    });
-});
 */
 
-let port=process.env.PORT || 3000;
-app.listen(port,(req,res) => {
-   console.log("Servidor ON"); 
-});

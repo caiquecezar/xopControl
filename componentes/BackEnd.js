@@ -1,5 +1,18 @@
 import React from "react";
 
+export async function DeleteList(id) {
+    let response = await fetch('http://10.0.2.2:3000/deleteList', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ listaId: id })
+    });
+    let json=await response.json();
+    console.log(json);
+}
+
 export async function LoadListas() {
     let todasListas = [];
     let response = await fetch('http://10.0.2.2:3000/getListas');
@@ -33,6 +46,24 @@ export async function CreateNewList(nomeLista) {
     console.log(json);
 };
 
+export async function AddNewItens(itens, lista) {
+    console.log(itens.length);
+    console.log(lista)
+    let response = await fetch ('http://10.0.2.2:3000/addItens', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            blista: lista,
+            bitens: itens
+        })
+    });
+    //let json=await response.json();
+    //console.log(json); 
+}
+
 export async function UpdateList(editable) {
     let response=await fetch('http://10.0.2.2:3000/updateList', 
         {
@@ -48,8 +79,7 @@ export async function UpdateList(editable) {
     });
     //let json=await response.json();
     //console.log(json);
-    console.log(editable.produtos.length);
-    
+    //console.log(editable.produtos.length);
     response = await fetch('http://10.0.2.2:3000/updateItens', {
         method: 'POST',
         headers: {
@@ -63,5 +93,4 @@ export async function UpdateList(editable) {
     });
     //let json=await response.json();
     //console.log(json);
-    
 };

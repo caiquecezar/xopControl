@@ -1,11 +1,14 @@
 import React, {useState} from 'react'
-import {View, Text, Image, StyleSheet, Button, TextInput, FlatList, BackHandler, Alert, TouchableHighlight} from 'react-native'
+import {View, Text, Button, TextInput, FlatList, BackHandler, Alert, TouchableHighlight} from 'react-native'
+import {AddNewItens} from './BackEnd.js'
 
-export default function ({navigation}) {
+export default function ({route, navigation}) {
     const [prod,setProd] = useState('');
     const [medida,setMedida] = useState('');
     const [itens, setItens] = useState([]);
     let id = itens.length;
+    const [nomedalista, setNomedalista] = useState(route.params.nome);
+
     function addItem () {
       itens.push({id: ++id, nome: prod, medida: medida})
       setItens([...itens])
@@ -14,7 +17,7 @@ export default function ({navigation}) {
     }
     function finalizarLista () {
       listaItens = itens;
-      addLista();
+      AddNewItens(listaItens, nomedalista);
       setProd('');
       setMedida('');
       setItens([]);
@@ -24,7 +27,7 @@ export default function ({navigation}) {
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5}}>
         <View style={{backgroundColor: '#09f', borderRadius: 10, marginBottom: 10, padding: 10}}>
           <Text style={{fontSize: 25, marginBottom: 15, color: 'white', fontWeight:'bold'}}>
-            {nomeLista}
+            {nomedalista}
           </Text>
           <Text style={{fontSize: 17, color: 'white'}}>
             Adicionar item 

@@ -1,6 +1,6 @@
 //IMPORTAÇÕES
-import React, {useState} from 'react'
-import {View, Text, Image, StyleSheet, Button, TextInput, FlatList, BackHandler, Alert, TouchableHighlight} from 'react-native'
+import React from 'react'
+import {Image} from 'react-native'
 import Footer from './componentes/footer'
 import {NavigationContainer} from '@react-navigation/native'
 import { createStackNavigator } from "@react-navigation/stack";
@@ -11,7 +11,6 @@ import TelaVerListas from './componentes/VerListas'
 import TelaEditarLista  from "./componentes/EditarLista";
 import TelaMenu from './componentes/Menu.js'
 import Estilo from './componentes/Estilo.js'
-import { LoadListas } from "./componentes/BackEnd.js";
 
 const Pilha = createStackNavigator();
 

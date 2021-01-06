@@ -38,7 +38,7 @@ export default function ({navigation}) {
                   onPress = {()=>{
                     CreateNewList(nome); 
                     setNome ('');
-                    navigation.navigate('TelaCadastroItens')
+                    navigation.navigate('TelaCadastroItens', {nome: nome})
                   }} 
               />
             </View>

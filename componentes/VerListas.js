@@ -1,18 +1,22 @@
-import React from 'react'
-import {View, Text, Image, StyleSheet, Button, FlatList, Alert, TouchableHighlight} from 'react-native'
+import React, {useState} from 'react'
+import {View, Text, Image, Button, FlatList, Alert, TouchableHighlight} from 'react-native'
 import Estilo from '../componentes/Estilo.js'
-import { LoadListas } from "../componentes/BackEnd.js";
-
-let idEdit = 0;
-let todasListas = [];
-
-async function loadData() {
-  console.log("LOAD VER LISTAS");
-  todasListas = await LoadListas();
-}  
-loadData();
+import { LoadListas, DeleteList } from "../componentes/BackEnd.js";
+import { useEffect } from 'react/cjs/react.development';
 
 export default function({navigation}) {
+  const [todasListas, setTodasListas] = useState([]);
+  async function loadData() {
+    let l = [];
+    console.log("LOAD VER LISTAS");
+    l = [];
+    l = await LoadListas();
+    setTodasListas(l);
+  }  
+  useEffect(()=>{
+    loadData();
+  },[]);
+
   return ( 
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5}}>
       <View style={{flex: 1, backgroundColor: '#09f', borderRadius: 10, padding: 10}}>
@@ -44,10 +48,10 @@ export default function({navigation}) {
                     </TouchableHighlight>
                     {'  '}
                     <TouchableHighlight 
-                      onPress={()=>{idEdit = ""+index; {
+                      onPress={()=>{{
                         Alert.alert(
                           "AVISO",
-                          "Deseja deletar a Lista?",
+                          "Deseja deletar a Lista?" ,
                           [
                             {
                               text: "Cancel",
@@ -56,7 +60,7 @@ export default function({navigation}) {
                             },
                             { 
                               text: "Sim", 
-                              onPress: () => console.log("OK Pressed") 
+                              onPress: () => {console.log("OK Pressed"); DeleteList(todasListas[index].id); loadData()}
                             }
                           ]
                         );
