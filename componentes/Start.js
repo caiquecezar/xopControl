@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {View, Text, Button, FlatList, TextInput} from 'react-native'
 import MoneyInput from 'react-native-money-input'
 import Estilo from '../componentes/Estilo.js'
+import {BuyItens} from './BackEnd.js'
 import { useEffect } from 'react/cjs/react.development';
 
 export default function({route, navigation}) {
@@ -52,7 +53,10 @@ export default function({route, navigation}) {
             <Button 
                 style={{}}
                 title="Finalizar"
-                onPress={{}}
+                onPress={()=>{
+                    BuyItens(lista.id, lista.produtos, state.textInputs);
+                    navigation.navigate('TelaMenu');
+                }}
             />
             </View>
         </View>

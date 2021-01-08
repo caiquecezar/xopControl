@@ -1,5 +1,22 @@
 import React from "react";
 
+export async function BuyItens(listaId, produtos, valores){
+    let response=await fetch('http://10.0.2.2:3000/buyItens', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            listaId: listaId,  
+            produtos:produtos, 
+            valores:valores
+        })
+    });
+    let json=await response.json();
+    console.log(json);    
+}
+
 export async function DeleteList(id) {
     let response = await fetch('http://10.0.2.2:3000/deleteList', {
         method: 'POST',

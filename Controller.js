@@ -11,6 +11,20 @@ let lista=models.Lista;
 let produto=models.Produto;
 let compra=models.Compra;
 
+app.post('/buyItens', async (req,res)=>{
+    let create;
+    for(i = 0; i < req.body.produtos.length; i++) {
+        create=await  compra.create({
+            listaId: req.body.listaId,
+            produtoId: req.body.produtos[i].id,
+            precoProduto: req.body.valores[i],
+            createdAt: new Date(),
+            updatedAt: new Date()
+        })
+    } 
+    res.send(create);
+});
+
 app.post('/createNewList', async (req,res)=>{
     let create=await lista.create({
         nomeLista: req.body.nomeLista,
@@ -94,13 +108,4 @@ app.listen(port,(req,res) => {
    console.log("Servidor ON"); 
 });
 
-/*
-app.get('/read', async (req,res)=>{
-    let read=await lista.findAll({
-        raw: true
-    });
-    console.log(read);    
-});
-
-*/
 
