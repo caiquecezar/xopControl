@@ -19,7 +19,7 @@ export default function({navigation}) {
   return ( 
     <View style={Estilo.viewMaster}>
       <View style={Estilo.viewFlatList}>
-        <Text style={Estilo.tituloTexto}>LISTAS</Text>
+        <Text style={Estilo.tituloTexto}>ESCOLHA UMA LISTA</Text>
         <FlatList
           data={todasListas}
           keyExtractor={item=>item.id.toString()} 

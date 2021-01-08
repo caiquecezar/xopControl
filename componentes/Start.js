@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, Text, Button, FlatList, TextInput} from 'react-native'
+import {View, Text, Button, FlatList, Alert} from 'react-native'
 import MoneyInput from 'react-native-money-input'
 import Estilo from '../componentes/Estilo.js'
 import {BuyItens} from './BackEnd.js'
@@ -54,8 +54,25 @@ export default function({route, navigation}) {
                 style={{}}
                 title="Finalizar"
                 onPress={()=>{
-                    BuyItens(lista.id, lista.produtos, state.textInputs);
-                    navigation.navigate('TelaMenu');
+                    Alert.alert(
+                        "AVISO",
+                        "Deseja finalizar as compras?" ,
+                        [
+                          {
+                            text: "Cancel",
+                            onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                          },
+                          { 
+                            text: "Sim", 
+                            onPress: () => {
+                                console.log("FAZENDO COMPRA..."); 
+                                BuyItens(lista.id, lista.produtos, state.textInputs);
+                                navigation.navigate('TelaMenu');
+                            }
+                          }
+                        ]
+                    );
                 }}
             />
             </View>

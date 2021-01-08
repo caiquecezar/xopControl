@@ -63,6 +63,14 @@ const estilo = StyleSheet.create({
       color: 'white', 
       width: 250,
     },
+    titleInputText: {
+      borderWidth: 1, 
+      borderColor: 'white', 
+      color: 'white', 
+      width: 250,
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
     viewButtonsRow: {
       flexDirection: 'row', 
       justifyContent: 'center',
@@ -91,10 +99,20 @@ const estilo = StyleSheet.create({
     },
     textoStart: {
       fontSize: 20,
-      
       color: 'white',
       width: 225,
     },
+    viewHistorico: {
+      flexDirection: 'row',  
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      margin: 5,
+    },
+    textoHistorico: {
+      fontSize: 15, 
+      textAlign: 'center', 
+      color: 'white',
+    }
   })
 
 export default estilo;

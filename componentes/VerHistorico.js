@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {View, Text, Image, Button, FlatList, TouchableHighlight} from 'react-native'
 import Estilo from '../componentes/Estilo.js'
-import { LoadListas, DeleteList } from "../componentes/BackEnd.js";
+import { LoadListas} from "../componentes/BackEnd.js";
 import { useEffect } from 'react/cjs/react.development';
 
 export default function({navigation}) {
@@ -30,12 +30,12 @@ export default function({navigation}) {
                     </Text>
                     <TouchableHighlight 
                       onPress={()=>{
-                        navigation.navigate('TelaStart', {currentList: todasListas[index]});
+                        navigation.navigate('TelaHistorico', {currentList: todasListas[index]});
                       }} 
                       underlayColor='green'
                     >
                       <Image 
-                        source = {require('../assets/images/next.png')} 
+                        source = {require('../assets/images/grafico.png')} 
                         style = {Estilo.next}
                       />
                     </TouchableHighlight>

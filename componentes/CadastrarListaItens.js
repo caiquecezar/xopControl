@@ -59,7 +59,7 @@ export default function ({route, navigation}) {
           <Text style={Estilo.tituloTexto2}>LISTA</Text>   
           <FlatList
             data={itens}
-            keyExtractor={item=>item.id} 
+            keyExtractor={item=>item.id.toString()} 
             renderItem={ ({item}) =>
                 <View>
                     <Text style={{color: 'white'}}> Item: {item.nome} - Unidade: {item.medida}</Text>

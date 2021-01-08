@@ -1,13 +1,5 @@
-import React, {useState} from 'react'
-import {View, StyleSheet, Button, BackHandler} from 'react-native'
-import {NavigationContainer} from '@react-navigation/native'
-import { createStackNavigator } from "@react-navigation/stack";
-import TelaInfo from '../componentes/Info.js'
-import TelaCadastroNome from '../componentes/CadastrarListaNome.js'
-import TelaCadastroItens from '../componentes/CadastrarListaItens.js'
-import TelaVerListas from '../componentes/VerListas.js'
-import TelaEditarLista  from "../componentes/EditarLista.js";
-import TelaSelecionarLista from './SelecionarLista.js'
+import React from 'react'
+import {View, Button, BackHandler} from 'react-native'
 
 export default function({navigation}) {    
     return (
@@ -33,6 +25,7 @@ export default function({navigation}) {
                     color='#0ae'
                     style={{}}
                     title="ver historico"
+                    onPress = {()=>navigation.push('TelaVerHistorico')}
                 />
                 <Button 
                     style={{}}

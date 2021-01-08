@@ -46,6 +46,14 @@ app.get('/getItens', async (req,res)=> {
     res.send(data);
 });
 
+app.post('/getCompras', async (req,res)=> {
+    let data = await compra.findAll({
+        attributes: ['id', 'precoProduto', 'produtoId'],
+        where: { listaId: req.body.id}
+      });
+    res.send(data);
+});
+
 app.post('/updateList', async (req,res)=>{
     let update = await lista.findByPk(req.body.id).then((response)=> {
         response.nomeLista = req.body.nome;

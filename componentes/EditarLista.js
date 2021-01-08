@@ -43,11 +43,10 @@ export default function ({route, navigation}) {
   return (
     <View style={Estilo.viewMaster}>
       <View style={Estilo.viewBlueBox}>
-        <Text style={Estilo.tituloTexto}>
-          LISTA
-        </Text>
+        
         <TextInput 
-          style={Estilo.inputText} 
+          style={Estilo.titleInputText}
+          textAlign='center'
           value = {nomeListaEdit}
           onChangeText={text => setNomeListEdit(text)}
         />
@@ -77,7 +76,7 @@ export default function ({route, navigation}) {
         <Text style={Estilo.tituloTexto2}>LISTA</Text>
         <FlatList
           data={itens}
-          keyExtractor={item=>item.id} 
+          keyExtractor={item=>item.id.toString()} 
           renderItem={ ({item}) =>
             <View>
               <Text style={Estilo.textoSimples}> 

@@ -1,5 +1,25 @@
 import React from "react";
 
+export async function LoadCompras(id) {
+    let todosValores = [];
+    let response = await fetch('http://10.0.2.2:3000/getCompras', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            id: id
+        })
+    });
+    let jsonLista = await response.json();
+    for (i=0; i<jsonLista.length;i++) {
+        todosValores.push({id: jsonLista[i].id, produtoId: jsonLista[i].produtoId, preco: jsonLista[i].precoProduto});
+    }
+    console.log("BackEnd.LoadCompras");
+    return todosValores;
+}
+
 export async function BuyItens(listaId, produtos, valores){
     let response=await fetch('http://10.0.2.2:3000/buyItens', {
         method: 'POST',
