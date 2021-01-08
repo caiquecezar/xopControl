@@ -10,17 +10,11 @@ import TelaCadastroItens from './componentes/CadastrarListaItens'
 import TelaVerListas from './componentes/VerListas'
 import TelaEditarLista  from "./componentes/EditarLista";
 import TelaMenu from './componentes/Menu.js'
+import TelaSelecionarLista from "./componentes/SelecionarLista.js";
+import TelaStart from './componentes/Start.js'
 import Estilo from './componentes/Estilo.js'
 
 const Pilha = createStackNavigator();
-
-function addLista () {
-  todasListas.push({id: ++contador, nome: nomeLista, produtos: listaItens})
-}
-function editLista (id) {
-  todasListas[id].nome = nomeLista;
-  todasListas[id].produtos = listaItens;
-}
 
 export default function () {
   return (
@@ -30,6 +24,46 @@ export default function () {
           name="TelaMenu"
           component={TelaMenu}
           options={{
+            title: "Shop Analyzer",
+            headerStyle: {
+              backgroundColor: 'blue',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerLeft: ()=>(
+                <Image 
+                  source={require('./assets/images/carrinho-de-compras.png')}
+                  style={Estilo.logo}
+                />
+            ),
+          }}
+        />
+        <Pilha.Screen 
+          name="TelaSelecionarLista"
+          component={TelaSelecionarLista}
+          options = {{
+            title: "Todas as Listas",
+            headerStyle: {
+              backgroundColor: 'blue',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerLeft: ()=>(
+                <Image 
+                  source={require('./assets/images/carrinho-de-compras.png')}
+                  style={Estilo.logo}
+                />
+            ),
+          }}
+        />
+        <Pilha.Screen 
+          name="TelaStart"
+          component={TelaStart}
+          options = {{
             title: "Shop Analyzer",
             headerStyle: {
               backgroundColor: 'blue',

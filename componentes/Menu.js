@@ -7,15 +7,16 @@ import TelaCadastroNome from '../componentes/CadastrarListaNome.js'
 import TelaCadastroItens from '../componentes/CadastrarListaItens.js'
 import TelaVerListas from '../componentes/VerListas.js'
 import TelaEditarLista  from "../componentes/EditarLista.js";
+import TelaSelecionarLista from './SelecionarLista.js'
 
 export default function({navigation}) {    
-    () => loadListas();
     return (
         <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
             <View style={{}}>
                 <Button 
                     style={{}}
-                    title="iniciar" 
+                    title="iniciar"
+                    onPress = {() => navigation.navigate('TelaSelecionarLista')} 
                 />
                 <Button   
                     style={{}}

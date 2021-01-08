@@ -7,8 +7,8 @@ import { useEffect } from 'react/cjs/react.development';
 export default function({navigation}) {
   const [todasListas, setTodasListas] = useState([]);
   async function loadData() {
+    console.log("VerListas.loadData");
     let l = [];
-    console.log("LOAD VER LISTAS");
     l = [];
     l = await LoadListas();
     setTodasListas(l);
@@ -16,19 +16,17 @@ export default function({navigation}) {
   useEffect(()=>{
     loadData();
   },[]);
-
   return ( 
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5}}>
-      <View style={{flex: 1, backgroundColor: '#09f', borderRadius: 10, padding: 10}}>
-        <Text style={{fontSize: 25, marginBottom: 15, color: 'white', fontWeight:'bold', textAlign: 'center'}}>LISTAS</Text>
+    <View style={Estilo.viewMaster}>
+      <View style={Estilo.viewFlatList}>
+        <Text style={Estilo.tituloTexto}>LISTAS</Text>
         <FlatList
           data={todasListas}
-          keyExtractor={item=>item.id} 
+          keyExtractor={item=>item.id.toString()} 
           renderItem={ ({item, index}) =>
               <View>
-                  <Text style={{color: 'white', fontSize: 12}}> 
-                    {index} nome: {item.nome} - Quantidade de itens: {item.produtos.length} 
-                    {'  '}
+                  <Text style={Estilo.textoSimples}> 
+                    {item.nome} - {item.produtos.length} itens {'  '}
                     <TouchableHighlight 
                       onPress={()=>{
                         let maxId = 0;
@@ -51,7 +49,7 @@ export default function({navigation}) {
                       onPress={()=>{{
                         Alert.alert(
                           "AVISO",
-                          "Deseja deletar a Lista?" ,
+                          "Deseja deletar a lista " + todasListas[index].nome + "?" ,
                           [
                             {
                               text: "Cancel",
@@ -77,7 +75,7 @@ export default function({navigation}) {
           }
         />
       </View>
-      <View style={{margin:10}}>
+      <View style={Estilo.Button}>
         <Button 
             style={{}}
             title="voltar"

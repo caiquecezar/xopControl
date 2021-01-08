@@ -1,47 +1,45 @@
 import React, {useState} from 'react'
-import {View, Text, Image, StyleSheet, Button, TextInput, FlatList, BackHandler, Alert, TouchableHighlight} from 'react-native'
+import {View, Text, Button, TextInput,  Alert} from 'react-native'
 import TelaCadastroItens from '../componentes/CadastrarListaItens.js'
 import {CreateNewList} from '../componentes/BackEnd.js'
+import Estilo from './Estilo.js'
 
 export default function ({navigation}) {
     const [nome,setNome] = useState('');
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <View>
-          <View style={{backgroundColor: '#09f', borderRadius: 10, marginBottom: 10, padding: 10}}>
-            <Text style={{fontSize: 25, marginBottom: 30, color: 'white', fontWeight:'bold'}}>
-              CRIAR NOVA LISTA   
-            </Text>
-            <View style={{ marginBottom: 20}}>
-              <Text style={{fontSize: 15, color: 'white'}}>
-                Nome da Lista:   
-              </Text>
-              <TextInput 
-                style={{borderWidth: 1, borderColor: 'white', color: 'white', width: 250}} 
-                value = {nome}
-                onChangeText={text => setNome(text)}
-              />
-            </View>
+      <View style={Estilo.viewMaster}>
+        <View style={Estilo.viewBlueBox}>
+          <Text style={Estilo.tituloTexto}>
+            CRIAR NOVA LISTA   
+          </Text>
+          <Text style={Estilo.textoSimples}>
+            Nome da Lista:   
+          </Text>
+          <TextInput 
+            style={Estilo.inputText} 
+            value = {nome}
+            onChangeText={text => setNome(text)}
+          />
+        </View>
+        <View style={Estilo.viewButtonsRow}>
+          <View style={Estilo.viewButton} >
+            <Button 
+              style={{}}
+              title="voltar"
+              onPress = {()=>{navigation.goBack()}} 
+            />
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={{margin: 10}} >
-              <Button 
-                  style={{}}
-                  title="voltar"
-                  onPress = {()=>{navigation.goBack()}} 
-              />
-            </View>
-            <View style={{margin: 10}} >
-              <Button 
-                  style={{}}
-                  title="Próximo"
-                  onPress = {()=>{
-                    CreateNewList(nome); 
-                    setNome ('');
-                    navigation.navigate('TelaCadastroItens', {nome: nome})
-                  }} 
-              />
-            </View>
+          <View style={Estilo.viewButton} >
+            <Button 
+                style={{}}
+                title="Próximo"
+                onPress = {()=>{
+                  CreateNewList(nome); 
+                  setNome ('');
+                  Alert.alert('AVISO', 'A lista ' + nome + ' foi criada com sucesso!');
+                  navigation.navigate('TelaCadastroItens', {nome: nome})
+                }}
+            />
           </View>
         </View>
       </View>

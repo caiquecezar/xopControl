@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {View, Text, Button, TextInput, FlatList, BackHandler, Alert, TouchableHighlight} from 'react-native'
 import {AddNewItens} from './BackEnd.js'
+import Estilo from './Estilo.js'
 
 export default function ({route, navigation}) {
     const [prod,setProd] = useState('');
@@ -24,27 +25,27 @@ export default function ({route, navigation}) {
       navigation.navigate('TelaMenu');
     }
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 5}}>
-        <View style={{backgroundColor: '#09f', borderRadius: 10, marginBottom: 10, padding: 10}}>
-          <Text style={{fontSize: 25, marginBottom: 15, color: 'white', fontWeight:'bold'}}>
+      <View style={Estilo.viewMaster}>
+        <View style={Estilo.viewBlueBox}>
+          <Text style={Estilo.tituloTexto}>
             {nomedalista}
           </Text>
-          <Text style={{fontSize: 17, color: 'white'}}>
+          <Text style={Estilo.tituloTexto2}>
             Adicionar item 
           </Text>
-          <Text style={{fontSize: 15, color: 'white'}}>
+          <Text style={Estilo.textoSimples}>
             Nome do item: 
           </Text>
           <TextInput 
-            style={{borderWidth: 1, borderColor: 'white', color: 'white', width: 250}} 
+            style={Estilo.inputText} 
             value = {prod}
             onChangeText={text => setProd(text)}
           />
-          <Text style={{fontSize: 15, color: 'white'}}>
+          <Text style={Estilo.textoSimples}>
             Unidade de medida: 
           </Text>
           <TextInput 
-            style={{borderWidth: 1, borderColor: 'white', color: 'white', width: 250, marginBottom: 5}} 
+            style={Estilo.inputText} 
             value = {medida}
             onChangeText={text => setMedida(text)}
           />
@@ -54,29 +55,27 @@ export default function ({route, navigation}) {
               onPress={() => addItem()}
           />
         </View>
-        <View style={{ flex: 1, backgroundColor: '#09f', borderRadius: 10, marginBottom: 5, padding: 10}}>
-          
-          <Text style={{fontSize: 17, color: 'white', width: 250, textAlign: 'center', fontWeight: 'bold'}}>LISTA</Text>   
-         
+        <View style={Estilo.viewFlatList}>
+          <Text style={Estilo.tituloTexto2}>LISTA</Text>   
           <FlatList
             data={itens}
             keyExtractor={item=>item.id} 
             renderItem={ ({item}) =>
-                <View style={{width: '100%'}}>
+                <View>
                     <Text style={{color: 'white'}}> Item: {item.nome} - Unidade: {item.medida}</Text>
                 </View>
             }
           />
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={{margin: 10}} >
+        <View style={Estilo.viewButtonsRow}>
+            <View style={Estilo.viewButton} >
               <Button 
                 style={{}}
                 title="voltar"
                 onPress = {()=>{navigation.goBack()}} 
               />
             </View>
-            <View style={{margin: 10}} >
+            <View style={Estilo.viewButton} >
               <Button 
                   style={{}}
                   title="Finalizar"

@@ -29,7 +29,7 @@ export async function LoadListas() {
         }
       }
     }
-    console.log(todasListas);
+    console.log("BackEnd.LoadListas");
     return todasListas;
 }
 
