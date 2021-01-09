@@ -228,10 +228,3 @@ export default function () {
   )
 }
 
-/*
-espress js - framework
-nodemon - rodar o server
-sequelize - facilita umas criações
-wampserver - servidor mysqyl phpmyadmin etc 
-npm install --save-dev nodemon
-*/
