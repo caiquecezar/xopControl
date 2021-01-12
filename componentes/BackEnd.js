@@ -51,6 +51,7 @@ export async function DeleteList(id) {
 }
 
 export async function LoadListas() {
+    console.log("BackEnd.LoadListas");
     let todasListas = [];
     let response = await fetch('http://10.0.2.2:3000/getListas');
     let jsonLista = await response.json();
@@ -66,7 +67,7 @@ export async function LoadListas() {
         }
       }
     }
-    console.log("BackEnd.LoadListas");
+    console.log(todasListas);
     return todasListas;
 }
 

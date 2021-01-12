@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, Text, Button, TextInput, FlatList, BackHandler, Alert, TouchableHighlight} from 'react-native'
+import {View, Text, Button, TextInput, FlatList, Alert} from 'react-native'
 import {AddNewItens} from './BackEnd.js'
 import Estilo from './Estilo.js'
 
@@ -22,6 +22,7 @@ export default function ({route, navigation}) {
       setProd('');
       setMedida('');
       setItens([]);
+      Alert.alert('ALERTA', 'Itens inseridos com sucesso!')
       navigation.navigate('TelaMenu');
     }
     return (

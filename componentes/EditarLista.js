@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {View, Text, Button, TextInput, FlatList} from 'react-native'
+import {View, Text, Button, TextInput, FlatList, Alert} from 'react-native'
 import { UpdateList } from '../componentes/BackEnd.js'
 import Estilo from "./Estilo.js";
 export default function ({route, navigation}) {
@@ -33,7 +33,7 @@ export default function ({route, navigation}) {
     console.log(editable.produtos)
     UpdateList(editable);
     //console.log("Editable FINAL"); console.log(editable);
-    
+    Alert.alert('ALERTA', 'Lista editada com sucesso!')
     setProd('');
     setMedida('');
     setItens([]);
